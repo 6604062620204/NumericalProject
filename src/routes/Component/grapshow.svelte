@@ -1,15 +1,20 @@
 <script>
-	export let result = { xshow: 0, iter: 0, iterations: [{ xshow: 0, yshow: 0, errorshow: 0 }] };
+	//@ts-nocheck
+	export let result = {
+		xshow: 0,
+		iter: 0,
+		iterations: [{ iter: 1, xshow: 0, yshow: 0, errorshow: 0 }],
+		mainxy: [{ x: 0, y: 0 }],
+		info0: [{ xshow: 0, yshow: 0 }]
+	};
 	import { onMount } from 'svelte';
 	export let choosez = '';
 
-	// @ts-ignore
 	let Plotly;
-	// @ts-ignore
+
 	let data, layout, config;
 
-	// @ts-ignore
-	$: if (choosez === 'newton' || choosez === 'onepoint') {
+	$: if (choosez === 'onepoint') {
 		data = [
 			{
 				x: result.iterations.map((point) => point.xshow),
@@ -37,12 +42,11 @@
 			}
 		];
 	}
-	// @ts-ignore
-	$: if (choosez === 'bisection' || choosez === 'false') {
+	$: if (choosez === 'bisection' || choosez === 'false' || choosez === 'graphical') {
 		data = [
 			{
-				x: result.iterations.map((point) => point.xshow),
-				y: result.iterations.map((point) => point.yshow),
+				x: result.iterations.map((point) => point.iter),
+				y: result.iterations.map((point) => point.xshow),
 				type: 'scatter',
 				mode: 'lines+markers',
 				line: { shape: 'spline', color: 'red' },
@@ -50,11 +54,31 @@
 			}
 		];
 	}
+	$: if (choosez === 'newton' || choosez === 'secant') {
+		data = [
+			{
+				x: result.info0.map((point) => point.xshow),
+				y: result.info0.map((point) => point.yshow),
+				type: 'scatter',
+				mode: 'lines+markers',
+				line: { shape: 'splines', color: 'purple' },
+				marker: { color: 'blue' },
+				name: 'Xm'
+			},
+			{
+				x: result.mainxy.map((point) => point.x),
+				y: result.mainxy.map((point) => point.y),
+				type: 'scatter',
+				mode: 'lines',
+				line: { shape: 'spline', color: 'red' },
+				name: 'main graph'
+			}
+		];
+	}
 
-	// @ts-ignore
 	$: layout = {
 		xaxis: {
-			title: 'Xm',
+			title: 'Xm,iter',
 			zeroline: true,
 			showlegend: true
 		},
@@ -67,28 +91,27 @@
 		margin: { l: 40, r: 10, t: 40, b: 40 }
 	};
 
-	// @ts-ignore
 	$: config = {
 		responsive: true,
 		displayModeBar: true,
 		modeBarButtonsToRemove: ['zoom2d', 'boxsec'],
 		displaylogo: false,
 		modeBarButtonsToAdd: ['drawline'],
-		scrollZoom: true
+		scrollZoom: true,
+		dragmode: ['pan']
 	};
 
 	onMount(async () => {
-		// @ts-ignore
 		Plotly = await import('plotly.js-dist-min');
-		// @ts-ignore
+
 		Plotly.newPlot('myDiv', data, layout, config);
 	});
 
-	// @ts-ignore
 	$: if (Plotly) {
-		// @ts-ignore
 		Plotly.react('myDiv', data, layout, config);
 	}
+	// $: console.log(result);
+	// $: console.log(result.mainxy);
 </script>
 
 <div id="myDiv" class="w-full h-96 sm:h-80 rounded-lg"></div>

@@ -6,7 +6,7 @@
 
 <div class="flex flex-col min-h-screen">
 	<header><Navbar /></header>
-	<main class="flex-grow">
+	<main class="flex-grow mt-24">
 		<slot />
 	</main>
 	<footer><Footer /></footer>

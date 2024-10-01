@@ -12,23 +12,22 @@
 
 	let result: { xshow: number; iter: number; iterations: Iteration[] } = {
 		xshow: 0,
-		iter: 0,
-		iterations: []
+		iter: 1,
+		iterations: [],
+		mainxy: [],
+		info0: []
 	};
+
 	let errorMessage = '';
-	// @ts-ignore
 	let showTable = false;
 
 	function calculate() {
 		if (func && errorFactor > 0) {
 			showTable = true;
-			// @ts-ignore
 			result = calmethod(xi, errorFactor, func);
-			// @ts-ignore
-			errorMessage = result.error || '';
 		} else {
 			errorMessage = 'ใส่ข้อมูลให้ถูกต้องดิ๊';
-			showTable = true;
+			showTable = false;
 		}
 	}
 
@@ -40,11 +39,9 @@
 		}
 	}
 
-	// @ts-ignore
 	$: if (func === '') {
 		showTable = false;
 	}
-	// @ts-ignore
 	$: console.log(result);
 </script>
 
@@ -123,7 +120,7 @@
 					{/if}
 
 					<table class="min-w-full rounded-md">
-						<thead class="bg-base-200 text-white border-b border-b-white">
+						<thead class="bg-primary text-red-200">
 							<tr>
 								<th class="py-2 px-4">iter</th>
 								<th class="py-2 px-4">X</th>
@@ -133,8 +130,8 @@
 						</thead>
 						<tbody>
 							{#each result.iterations as iter, index}
-								<tr class="text-white py-2 bg-black text-center">
-									<td class="px-4 bg-gray-900 py-2">{index + 1}</td>
+								<tr class="text-white py-2 bg-secondary text-center">
+									<td class="px-4 bg-primary py-2">{index + 1}</td>
 									<td class="px-4 py-2">{formatNumber(iter.xshow)}</td>
 									<td class="px-4 py-2">{formatNumber(iter.yshow)}</td>
 									<td class="px-4 py-2">{formatNumber(iter.errorshow)}</td>

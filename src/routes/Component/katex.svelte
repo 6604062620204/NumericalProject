@@ -5,6 +5,8 @@
 
 	export let num = 0;
 	export let func = '';
+	export let func1 = '';
+	export let func2 = '';
 	let equation = '';
 
 	function renderMath() {
@@ -26,6 +28,23 @@
 				});
 			} else {
 				equation = katex.renderToString(`x_{i+1} = ...`, {
+					throwOnError: false
+				});
+			}
+		}
+		if (num === 3) {
+			if (func) {
+				equation = katex.renderToString(`${func}`, {
+					throwOnError: false
+				});
+			}
+			if (func1) {
+				equation = katex.renderToString(`${func1}`, {
+					throwOnError: false
+				});
+			}
+			if (func2) {
+				equation = katex.renderToString(`${func2}`, {
 					throwOnError: false
 				});
 			}

@@ -17,15 +17,13 @@
 		iterations: []
 	};
 	let errorMessage = '';
-	// @ts-ignore
+
 	let showTable = false;
 
 	function calculate() {
 		if (func && xStart < xEnd && errorFactor > 0) {
 			showTable = true;
-			// @ts-ignore
 			result = calmethod(xStart, xEnd, errorFactor, func);
-			// @ts-ignore
 			errorMessage = result.error || '';
 		} else {
 			errorMessage = 'ใส่ข้อมูลให้ถูกต้องดิ๊';
@@ -41,11 +39,9 @@
 		}
 	}
 
-	// @ts-ignore
 	$: if (func === '') {
 		showTable = false;
 	}
-	// @ts-ignore
 	//$: console.log(result);
 </script>
 
@@ -135,7 +131,7 @@
 					{/if}
 
 					<table class="min-w-full rounded-md">
-						<thead class="bg-base-200 text-white border-b border-b-white">
+						<thead class="bg-primary text-red-200">
 							<tr>
 								<th class="py-2 px-4">iter</th>
 								<th class="py-2 px-4">X</th>
@@ -145,8 +141,8 @@
 						</thead>
 						<tbody>
 							{#each result.iterations as iter, index}
-								<tr class="text-white py-2 bg-black text-center">
-									<td class="px-4 bg-gray-900 py-2">{index + 1}</td>
+								<tr class="text-white py-2 bg-secondary text-center">
+									<td class="px-4 bg-primary py-2">{index + 1}</td>
 									<td class="px-4 py-2">{formatNumber(iter.xshow)}</td>
 									<td class="px-4 py-2">{formatNumber(iter.yshow)}</td>
 									<td class="px-4 py-2">{formatNumber(iter.errorshow)}</td>
@@ -176,7 +172,7 @@
 	<div class="bg-base-300 collapse w-screen">
 		<input type="checkbox" class="peer" />
 		<div class="collapse-title bg-primary text-red-200 peer-checked:bg-primary">
-			<h1 class="text-2xl text-center">Graph</h1>
+			<h1 class="text-2xl text-center">กราฟ</h1>
 		</div>
 		<div class="collapse-content peer-checked:bg-primary">
 			<div class="flex justify-center">

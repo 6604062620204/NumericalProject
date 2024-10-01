@@ -2,29 +2,29 @@
 	// @ts-nocheck
 	import Grapshow from '../../Component/grapshow.svelte';
 	import Katex from '../../Component/katex.svelte';
-	import { calmethod } from '../Onepoint/cal';
+	import { calmethod } from '../Secant/cal';
 
-	let xi = 0;
+	let xi0 = 0;
+	let xi1 = 1;
 	let errorFactor = 0.000001;
 	let func = '';
 	let num = 1;
-	let choosez = 'onepoint';
+	let choosez = 'secant';
 
 	let result: { xshow: number; iter: number; iterations: Iteration[] } = {
 		xshow: 0,
 		iter: 0,
-		iterations: []
+		iterations: [],
+		mainxy: [],
+		info0: []
 	};
 	let errorMessage = '';
-	// @ts-ignore
 	let showTable = false;
 
 	function calculate() {
-		if (func && errorFactor > 0) {
+		if (func && xi0 < xi1 && errorFactor > 0) {
 			showTable = true;
-			// @ts-ignore
-			result = calmethod(xi, errorFactor, func);
-			// @ts-ignore
+			result = calmethod(xi0, xi1, errorFactor, func);
 			errorMessage = result.error || '';
 		} else {
 			errorMessage = 'ใส่ข้อมูลให้ถูกต้องดิ๊';
@@ -45,10 +45,10 @@
 		showTable = false;
 	}
 	// @ts-ignore
-	$: console.log(result);
+	//$: console.log(result);
 </script>
 
-<h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Onepoint Medthod</h1>
+<h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Secant Medthod</h1>
 
 <div class="my-10 flex justify-center">
 	<div
@@ -63,11 +63,22 @@
 		<!-- svelte-ignore a11y-label-has-associated-control -->
 		<form on:submit|preventDefault={calculate} class="lg:flex lg:space-x-4 md:flex md:space-x-4">
 			<div>
-				<label class="block">X Initial</label>
+				<label class="block">X Initial 0</label>
 				<input
 					type="number"
-					bind:value={xi}
+					bind:value={xi0}
 					placeholder="0"
+					class="mt-1 block p-2 border border-gray-300 rounded-md lg:w-36 md:w-20"
+					required
+				/>
+			</div>
+
+			<div>
+				<label class="block">X Initial 1</label>
+				<input
+					type="number"
+					bind:value={xi1}
+					placeholder="10"
 					class="mt-1 block p-2 border border-gray-300 rounded-md lg:w-36 md:w-20"
 					required
 				/>
@@ -80,7 +91,7 @@
 					bind:value={func}
 					placeholder="43x - 180"
 					class="mt-1 block p-2 border border-gray-300 rounded-md lg:w-36 md:w-32"
-					required={true}
+					required
 				/>
 			</div>
 
@@ -123,7 +134,7 @@
 					{/if}
 
 					<table class="min-w-full rounded-md">
-						<thead class="bg-base-200 text-white border-b border-b-white">
+						<thead class="bg-primary text-red-200">
 							<tr>
 								<th class="py-2 px-4">iter</th>
 								<th class="py-2 px-4">X</th>
@@ -133,8 +144,8 @@
 						</thead>
 						<tbody>
 							{#each result.iterations as iter, index}
-								<tr class="text-white py-2 bg-black text-center">
-									<td class="px-4 bg-gray-900 py-2">{index + 1}</td>
+								<tr class="text-white py-2 bg-secondary text-center">
+									<td class="px-4 bg-primary py-2">{index + 1}</td>
 									<td class="px-4 py-2">{formatNumber(iter.xshow)}</td>
 									<td class="px-4 py-2">{formatNumber(iter.yshow)}</td>
 									<td class="px-4 py-2">{formatNumber(iter.errorshow)}</td>
@@ -164,7 +175,7 @@
 	<div class="bg-base-300 collapse w-screen">
 		<input type="checkbox" class="peer" />
 		<div class="collapse-title bg-primary text-red-200 peer-checked:bg-primary">
-			<h1 class="text-2xl text-center">Graph</h1>
+			<h1 class="text-2xl text-center">เปิดกราฟ</h1>
 		</div>
 		<div class="collapse-content peer-checked:bg-primary">
 			<div class="flex justify-center">

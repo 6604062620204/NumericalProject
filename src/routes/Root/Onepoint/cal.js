@@ -1,5 +1,5 @@
 // @ts-nocheck
-// @ts-ignore
+
 import { evaluate } from 'mathjs';
 
 export function objectresult() {
@@ -7,13 +7,12 @@ export function objectresult() {
 		xshow: 0,
 		yshow: 0,
 		errorshow: 0,
-		iter: 0,
+		iter: 1,
 		iterations: [],
 		error: ''
 	};
 }
 
-// @ts-ignore
 export function calmethod(xi, errorFactor, func) {
 	console.log(xi, errorFactor, func);
 	const result = objectresult();
@@ -28,15 +27,16 @@ export function calmethod(xi, errorFactor, func) {
 		xi = f(xi);
 		errorcal = Math.abs((xi - xOld) / xi);
 		result.iterations.push({
+			iter: result.iter,
 			xshow: xOld,
 			yshow: xi,
 			errorshow: errorcal
 		});
-		result.xshow = xOld;
-		result.yshow = xi;
-		result.errorshow = errorcal;
 		result.iter++;
-	} while (Math.abs((xi - xOld) / xi) > errorFactor);
+	} while (errorcal > errorFactor);
 
+	result.xshow = xOld;
+	result.yshow = xi;
+	result.errorshow = errorcal;
 	return result;
 }
