@@ -110,7 +110,7 @@
 			<div class="flex justify-center">
 				<button
 					type="submit"
-					class="w-auto h-12 drop-shadow-md bg-primary text-red-200 mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
+					class="w-auto h-12 drop-shadow-md bg-primary text-primary-content mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
 					>คำนวณ</button
 				>
 			</div>
@@ -118,7 +118,7 @@
 		{#if showTable}
 			<div class="flex justify-center mt-6">
 				<button
-					class="w-auto h-12 drop-shadow-md bg-primary text-red-200 py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
+					class="w-auto h-12 drop-shadow-md bg-primary text-primary-content py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
 					on:click={() => document.getElementById('my_modal_5').showModal()}
 				>
 					เปิดตาราง
@@ -134,7 +134,7 @@
 					{/if}
 
 					<table class="min-w-full rounded-md">
-						<thead class="bg-primary text-red-200">
+						<thead class="bg-primary text-primary-content">
 							<tr>
 								<th class="py-2 px-4">iter</th>
 								<th class="py-2 px-4">X</th>
@@ -174,7 +174,7 @@
 <div class="flex justify-center my-10 lg:mx-96">
 	<div class="bg-base-300 collapse w-screen">
 		<input type="checkbox" class="peer" />
-		<div class="collapse-title bg-primary text-red-200 peer-checked:bg-primary">
+		<div class="collapse-title bg-primary text-primary-content peer-checked:bg-primary">
 			<h1 class="text-2xl text-center">เปิดกราฟ</h1>
 		</div>
 		<div class="collapse-content peer-checked:bg-primary">

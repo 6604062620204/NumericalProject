@@ -1,7 +1,6 @@
 <script>
 	import katex from 'katex';
 	import 'katex/dist/katex.min.css'; // นำเข้า CSS
-	import { exp } from 'mathjs';
 
 	export let num = 0;
 	export let func = '';

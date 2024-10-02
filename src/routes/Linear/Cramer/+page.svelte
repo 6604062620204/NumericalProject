@@ -1,30 +1,40 @@
 <script lang="ts">
 	import Katex from '../../Component/katex.svelte';
+	import { calmethod } from '../Cramer/cal';
 
 	let matrixSize = 3; // ตั้งค่าเริ่มต้นเป็น 3x3
 
-	let matrix: any[] = [];
-	let matrix1: any[] = [];
+	let matrixA: any[] = [];
+	let matrixB: any[] = [];
 	let func = '[A]';
 	let func1 = '\\{X\\}';
 	let func2 = '\\{B\\}';
 	let num = 3;
 
-	$: console.log(matrix);
-	$: console.log(matrix1);
+	let result = {
+		matrixX: []
+	};
+
+	$: console.log(matrixA);
+	$: console.log(matrixB);
 	// ฟังก์ชันสำหรับการตั้งค่า Matrix ใหม่ตามขนาดที่ผู้ใช้ป้อน
 	function updateMatrix() {
-		matrix = Array.from({ length: matrixSize }, () => Array(matrixSize).fill(''));
+		matrixA = Array.from({ length: matrixSize }, () => Array(matrixSize).fill(''));
 	}
 	// เรียก updateMatrix ตอนโหลดครั้งแรก
 	updateMatrix();
+
+	function calculate() {
+		result = calmethod(matrixA, matrixB);
+	}
+	$: console.log(result);
 </script>
 
 <h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Cramer's Rule</h1>
 <div class="flex justify-center">
 	<div class="p-4">
 		<div class="flex flex-col items-center">
-			<label for="matrix-size" class="block text-lg font-medium text-gray-700"
+			<label for="matrix-size" class="block text-lg font-medium text-content"
 				>Matrix Size {matrixSize} x {matrixSize}</label
 			>
 			<input
@@ -47,62 +57,71 @@
 			{/if}
 
 			<div>
-				{#if matrixSize > 1 && matrixSize <= 4}
-					<form class="flex space-x-4">
-						<div class="flex-cols">
-							<h2 class="text-lg text-primary flex justify-center">
-								<Katex {func} {num} />
-							</h2>
+				<form on:submit|preventDefault={calculate} class="">
+					<div class="flex space-x-4">
+						{#if matrixSize > 1 && matrixSize <= 4}
+							<div class="flex-cols">
+								<h2 class="text-lg text-primary flex justify-center">
+									<Katex {func} {num} />
+								</h2>
 
-							<div class={`grid grid-cols-${matrixSize} justify-items-center gap-2 mt-2`}>
-								{#each matrix as row, rowIndex}
-									{#each row as cell, colIndex}
+								<div class={`grid grid-cols-${matrixSize} justify-items-center gap-2 mt-2`}>
+									{#each matrixA as row, rowIndex}
+										{#each row as cell, colIndex}
+											<input
+												type="number"
+												class="border p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
+												bind:value={matrixA[rowIndex][colIndex]}
+												placeholder="a{rowIndex + 1}{colIndex + 1}"
+											/>
+										{/each}
+									{/each}
+								</div>
+							</div>
+							<div class="flex-cols hidden sm:block">
+								<h2 class="text-lg text-primary flex justify-center">
+									<Katex {func1} {num} />
+								</h2>
+
+								<div class={`grid grid-rows-${matrixSize} justify-items-center gap-2 mt-2 `}>
+									{#each matrixA as row, rowIndex}
+										<input
+											type="number"
+											class="border p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto bg-primary border-secondary focus:outline-none placeholder-white"
+											bind:value={matrixA[rowIndex]}
+											placeholder="x{rowIndex + 1}"
+											readonly
+										/>
+									{/each}
+								</div>
+							</div>
+							<div class="flex mt-24"><p class="text-3xl">=</p></div>
+							<div class="flex-cols">
+								<h2 class="text-lg text-primary flex justify-center">
+									<Katex {func2} {num} />
+								</h2>
+
+								<div class={`grid grid-rows-${matrixSize} justify-items-center gap-2 mt-2 `}>
+									{#each matrixA as row, rowIndex}
 										<input
 											type="number"
 											class="border p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
-											bind:value={matrix[rowIndex][colIndex]}
-											placeholder="a{rowIndex + 1}{colIndex + 1}"
+											bind:value={matrixB[rowIndex]}
+											placeholder="b{rowIndex + 1}"
 										/>
 									{/each}
-								{/each}
+								</div>
 							</div>
-						</div>
-						<div class="flex-cols hidden sm:block">
-							<h2 class="text-lg text-primary flex justify-center">
-								<Katex {func1} {num} />
-							</h2>
-
-							<div class={`grid grid-rows-${matrixSize} justify-items-center gap-2 mt-2 `}>
-								{#each matrix as row, rowIndex}
-									<input
-										type="number"
-										class="border p-2 rounded-md text-center w-20 h-auto bg-primary border-secondary focus:outline-none placeholder-white"
-										bind:value={matrix[rowIndex]}
-										placeholder="x{rowIndex + 1}"
-										readonly
-									/>
-								{/each}
-							</div>
-						</div>
-						<div class="flex my-24"><p class="text-3xl">=</p></div>
-						<div class="flex-cols">
-							<h2 class="text-lg text-primary flex justify-center">
-								<Katex {func2} {num} />
-							</h2>
-
-							<div class={`grid grid-rows-${matrixSize} justify-items-center gap-2 mt-2 `}>
-								{#each matrix as row, rowIndex}
-									<input
-										type="number"
-										class="border p-2 rounded-md text-center w-20 h-auto border-secondary focus:outline-none"
-										bind:value={matrix1[rowIndex]}
-										placeholder="x{rowIndex + 1}"
-									/>
-								{/each}
-							</div>
-						</div>
-					</form>
-				{/if}
+						{/if}
+					</div>
+					<div class="flex justify-center">
+						<button
+							type="submit"
+							class="w-auto h-12 drop-shadow-md bg-primary text-white mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
+							>Calculate!</button
+						>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

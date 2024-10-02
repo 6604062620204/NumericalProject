@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { evaluate } from 'mathjs';
+import { abs, evaluate } from 'mathjs';
 
 export function objectresult() {
 	return {
@@ -25,7 +25,7 @@ export function calmethod(xi0, xi1, errorFactor, func) {
 	let xn2 = xi0;
 	let xn1 = xi1;
 	let xfirst = calcuateXn(xn2, xn1);
-	for (let i = -10; i <= 10; i += 0.002) {
+	for (let i = -5; i <= 5; i += 0.002) {
 		result.mainxy.push({
 			x: i,
 			y: evaluate(func, { x: i })

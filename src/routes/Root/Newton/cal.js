@@ -1,6 +1,6 @@
 // @ts-nocheck
 // @ts-ignore
-import { evaluate, derivative } from 'mathjs';
+import { abs, evaluate, derivative } from 'mathjs';
 
 export function objectresult() {
 	return {
@@ -24,13 +24,16 @@ export function calmethod(xi, errorFactor, func) {
 	let xOld = 0;
 	let fx = 0;
 	let errorcal = 0;
-	for (let i = -10; i <= 10; i += 0.002) {
+	let mx = abs(xi);
+	if (xi <= 10 || xi <= -10) {
+		mx = abs(xi) + abs(xi) / 10;
+	}
+	for (let i = -mx; i <= mx; i += 0.002) {
 		result.mainxy.push({
 			x: i,
 			y: f(i)
 		});
 	}
-	// let xi = 0;
 	do {
 		xOld = xi;
 		xi = xi - f(xi) / fprime(xi);
@@ -54,11 +57,12 @@ export function calmethod(xi, errorFactor, func) {
 		});
 		result.iter++;
 	} while (Math.abs(f(xi)) > errorFactor);
+
 	result.info0.push({
 		xshow: xfirst,
 		yshow: 0
 	});
 	result.xshow = xi;
-	console.log(result);
+	console.log(result.info0);
 	return result;
 }

@@ -11,7 +11,7 @@ module.exports = {
 	},
 	plugins: [require('daisyui')],
 	daisyui: {
-		themes: ['autumn']
+		themes: ['autumn', 'night']
 	},
 	safelist: [
 		{
