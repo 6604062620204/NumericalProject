@@ -63,7 +63,7 @@
 				<li><a href="$">Conjugate</a></li>
 			</ul>
 		</div>
-		<div class="">
+		<div class="ml-6 mr-4">
 			<label class="swap swap-rotate">
 				<input type="checkbox" class="theme-controller" value="night" on:change={toggleTheme} />
 

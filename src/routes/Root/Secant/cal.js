@@ -36,7 +36,7 @@ export function calmethod(xi0, xi1, errorFactor, func) {
 	do {
 		x = calcuateXn(xn2, xn1);
 
-		errorcal = Math.abs((x - xn1) / xn1);
+		errorcal = abs((x - xn1) / xn1);
 
 		xn2 = xn1;
 		xn1 = x;

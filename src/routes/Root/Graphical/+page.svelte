@@ -106,7 +106,7 @@
 			<div class="flex justify-center">
 				<button
 					type="submit"
-					class="w-auto h-12 drop-shadow-md bg-primary text-primary-content mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
+					class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
 					>คำนวณ</button
 				>
 			</div>
@@ -114,7 +114,7 @@
 		{#if showTable}
 			<div class="flex justify-center mt-6">
 				<button
-					class="w-auto h-12 drop-shadow-md bg-primary text-primary-content py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
+					class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
 					on:click={() => document.getElementById('my_modal_5').showModal()}
 				>
 					เปิดตาราง

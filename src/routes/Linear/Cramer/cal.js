@@ -4,7 +4,8 @@ import { det } from 'mathjs';
 
 export function objectresult() {
 	return {
-		matrixX: []
+		matrixX: [],
+		matrixCopy: []
 	};
 }
 
@@ -17,7 +18,8 @@ export function calmethod(matrixA, matrixB) {
 		for (let j = 0; j < matrixA.length; j++) {
 			matrixCopy[j][i] = matrixB[j];
 		}
+		result.matrixCopy.push(matrixCopy);
 		result.matrixX.push(det(matrixCopy) / detA);
-		console.log(result.matrixX);
 	}
+	console.log(result);
 }

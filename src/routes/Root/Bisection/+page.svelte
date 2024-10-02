@@ -107,7 +107,7 @@
 			<div class="flex justify-center">
 				<button
 					type="submit"
-					class="w-auto h-12 drop-shadow-md bg-primary text-primary-content mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
+					class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
 					>คำนวณ</button
 				>
 			</div>
@@ -115,7 +115,7 @@
 		{#if showTable}
 			<div class="flex justify-center mt-6">
 				<button
-					class="w-auto h-12 drop-shadow-md bg-primary text-primary-content py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
+					class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
 					on:click={() => document.getElementById('my_modal_5').showModal()}
 				>
 					เปิดตาราง
@@ -168,8 +168,8 @@
 	</div>
 </div>
 
-<div class="flex justify-center my-10 lg:mx-96">
-	<div class="bg-base-300 collapse w-screen">
+<div class="flex justify-center my-10 xl:mx-96 lg:mx-48 md:mx-16">
+	<div class="bg-base-300 collapse w-screen sm:w-[90%]">
 		<input type="checkbox" class="peer" />
 		<div class="collapse-title bg-primary text-primary-content peer-checked:bg-primary">
 			<h1 class="text-2xl text-center">เปิดกราฟ</h1>

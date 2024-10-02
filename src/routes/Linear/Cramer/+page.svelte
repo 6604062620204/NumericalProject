@@ -1,11 +1,13 @@
-<script lang="ts">
+<script>
+	//@ts-nocheck
+
 	import Katex from '../../Component/katex.svelte';
 	import { calmethod } from '../Cramer/cal';
 
 	let matrixSize = 3; // ตั้งค่าเริ่มต้นเป็น 3x3
 
-	let matrixA: any[] = [];
-	let matrixB: any[] = [];
+	let matrixA = [];
+	let matrixB = [];
 	let func = '[A]';
 	let func1 = '\\{X\\}';
 	let func2 = '\\{B\\}';
@@ -70,7 +72,7 @@
 										{#each row as cell, colIndex}
 											<input
 												type="number"
-												class="border p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
+												class="border text-neutral-content p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
 												bind:value={matrixA[rowIndex][colIndex]}
 												placeholder="a{rowIndex + 1}{colIndex + 1}"
 											/>
@@ -87,8 +89,8 @@
 									{#each matrixA as row, rowIndex}
 										<input
 											type="number"
-											class="border p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto bg-primary border-secondary focus:outline-none placeholder-white"
-											bind:value={matrixA[rowIndex]}
+											class="border p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto bg-primary border-secondary focus:outline-none placeholder-primary-content"
+											value="x[rowIndex]"
 											placeholder="x{rowIndex + 1}"
 											readonly
 										/>
@@ -114,13 +116,15 @@
 							</div>
 						{/if}
 					</div>
-					<div class="flex justify-center">
-						<button
-							type="submit"
-							class="w-auto h-12 drop-shadow-md bg-primary text-white mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl hover:bg-red-900"
-							>Calculate!</button
-						>
-					</div>
+					{#if matrixSize > 1 && matrixSize <= 4}
+						<div class="flex justify-center">
+							<button
+								type="submit"
+								class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
+								>Calculate!</button
+							>
+						</div>
+					{/if}
 				</form>
 			</div>
 		</div>
