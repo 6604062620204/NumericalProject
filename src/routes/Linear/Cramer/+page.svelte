@@ -154,23 +154,22 @@
 	</div>
 </div>
 
-<div class="block sm:hidden">
-	<!-- ปุ่ม Download บนจอขนาดเล็ก -->
+<div class="block xl:hidden">
 	<div class="flex justify-center">
 		<a href={pdfUrl} download class="btn font-light btn-primary">Download Doc</a>
 	</div>
 </div>
 
-<div class="hidden sm:block">
-	<div class="flex justify-center my-10 xl:mx-60 lg:mx-32">
-		<div class="bg-base-300 collapse w-screen">
+<div class="hidden xl:block">
+	<div class="flex justify-center my-10 xl:mx-60 lg:mx-32 md:mx-16 sm:mx-8 mx-4">
+		<div class="bg-base-300 collapse w-full">
 			<input type="checkbox" class="peer" />
 			<div class="collapse-title bg-primary text-primary-content peer-checked:bg-primary">
 				<h1 class="text-2xl text-center">เปิดวิธีทำ</h1>
 			</div>
 			<div class="collapse-content peer-checked:bg-primary">
 				<div class="flex justify-center">
-					<!-- ตั้งค่าขนาดที่เหมาะสมสำหรับ PDF viewer -->
+					<!-- ปรับขนาดของ PDF viewer ให้เหมาะสม -->
 					<embed src={pdfUrl} type="application/pdf" class="w-full h-screen" />
 				</div>
 			</div>
