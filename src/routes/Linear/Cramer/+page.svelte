@@ -1,7 +1,6 @@
 <script>
 	//@ts-nocheck
 	import Katex from '../../Component/katex.svelte';
-	import Katexlinear from '../../Component/katexlinear.svelte';
 	import { calmethod } from '../Cramer/cal';
 
 	let matrixSize = 3; // ตั้งค่าเริ่มต้นเป็น 3x3
