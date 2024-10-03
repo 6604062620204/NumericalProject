@@ -4,8 +4,10 @@ import { det } from 'mathjs';
 
 export function objectresult() {
 	return {
+		detA: 0,
 		matrixX: [],
-		matrixCopy: []
+		matrixCopy: [],
+		detCopy: []
 	};
 }
 
@@ -19,7 +21,9 @@ export function calmethod(matrixA, matrixB) {
 			matrixCopy[j][i] = matrixB[j];
 		}
 		result.matrixCopy.push(matrixCopy);
+		result.detCopy.push(det(matrixCopy));
 		result.matrixX.push(det(matrixCopy) / detA);
 	}
-	console.log(result);
+	result.detA = det(matrixA);
+	return result;
 }

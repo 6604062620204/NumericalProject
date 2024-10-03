@@ -1,34 +1,48 @@
 <script>
 	//@ts-nocheck
-
 	import Katex from '../../Component/katex.svelte';
+	import Katexlinear from '../../Component/katexlinear.svelte';
 	import { calmethod } from '../Cramer/cal';
 
 	let matrixSize = 3; // ตั้งค่าเริ่มต้นเป็น 3x3
-
 	let matrixA = [];
 	let matrixB = [];
 	let func = '[A]';
 	let func1 = '\\{X\\}';
 	let func2 = '\\{B\\}';
 	let num = 3;
+	let pdfUrl = '/assets/doclinear/Cramer.pdf';
 
 	let result = {
-		matrixX: []
+		detA: 0,
+		matrixX: [],
+		matrixCopy: [],
+		detCopy: []
 	};
 
-	$: console.log(matrixA);
-	$: console.log(matrixB);
 	// ฟังก์ชันสำหรับการตั้งค่า Matrix ใหม่ตามขนาดที่ผู้ใช้ป้อน
 	function updateMatrix() {
 		matrixA = Array.from({ length: matrixSize }, () => Array(matrixSize).fill(''));
+		matrixB = Array.from({ length: matrixSize }).fill('');
 	}
+
 	// เรียก updateMatrix ตอนโหลดครั้งแรก
 	updateMatrix();
 
+	// ฟังก์ชันสำหรับสุ่มค่าใน Matrix
+	function randomizeMatrix() {
+		matrixA = Array.from(
+			{ length: matrixSize },
+			() => Array.from({ length: matrixSize }, () => Math.floor(Math.random() * 10) + 1) // สุ่มตัวเลข 1-10
+		);
+		matrixB = Array.from({ length: matrixSize }, () => Math.floor(Math.random() * 10) + 1); // สุ่มตัวเลข 1-10 สำหรับ Matrix B
+	}
+
+	// ฟังก์ชันสำหรับการคำนวณ (Cramer's Rule)
 	function calculate() {
 		result = calmethod(matrixA, matrixB);
 	}
+
 	$: console.log(result);
 </script>
 
@@ -36,9 +50,9 @@
 <div class="flex justify-center">
 	<div class="p-4">
 		<div class="flex flex-col items-center">
-			<label for="matrix-size" class="block text-lg font-medium text-content"
-				>Matrix Size {matrixSize} x {matrixSize}</label
-			>
+			<label for="matrix-size" class="block text-lg font-medium text-content">
+				Matrix Size {matrixSize} x {matrixSize}
+			</label>
 			<input
 				id="matrix-size"
 				type="number"
@@ -72,7 +86,7 @@
 										{#each row as cell, colIndex}
 											<input
 												type="number"
-												class="border text-neutral-content p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
+												class="border p-2 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
 												bind:value={matrixA[rowIndex][colIndex]}
 												placeholder="a{rowIndex + 1}{colIndex + 1}"
 											/>
@@ -116,16 +130,50 @@
 							</div>
 						{/if}
 					</div>
+
+					<!-- ปุ่มสุ่มตัวเลขใหม่สำหรับ Matrix A และ B -->
 					{#if matrixSize > 1 && matrixSize <= 4}
 						<div class="flex justify-center">
 							<button
+								type="button"
+								on:click={randomizeMatrix}
+								class="btn font-light text-base w-auto h-12 drop-shadow-md bg-secondary text-secondary-content mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl mr-4"
+							>
+								Randomize Matrix!
+							</button>
+							<button
 								type="submit"
 								class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content mt-6 py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
-								>Calculate!</button
 							>
+								Calculate!
+							</button>
 						</div>
 					{/if}
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="block sm:hidden">
+	<!-- ปุ่ม Download บนจอขนาดเล็ก -->
+	<div class="flex justify-center">
+		<a href={pdfUrl} download class="btn font-light btn-primary">Download Doc</a>
+	</div>
+</div>
+
+<div class="hidden sm:block">
+	<div class="flex justify-center my-10 xl:mx-60 lg:mx-32">
+		<div class="bg-base-300 collapse w-screen">
+			<input type="checkbox" class="peer" />
+			<div class="collapse-title bg-primary text-primary-content peer-checked:bg-primary">
+				<h1 class="text-2xl text-center">เปิดวิธีทำ</h1>
+			</div>
+			<div class="collapse-content peer-checked:bg-primary">
+				<div class="flex justify-center">
+					<!-- ตั้งค่าขนาดที่เหมาะสมสำหรับ PDF viewer -->
+					<embed src={pdfUrl} type="application/pdf" class="w-full h-screen" />
+				</div>
 			</div>
 		</div>
 	</div>
