@@ -156,8 +156,8 @@
 	</div>
 </div>
 
-<div class="flex justify-center my-10 lg:mx-96">
-	<div class="bg-base-300 collapse w-screen">
+<div class="flex justify-center my-10 xl:mx-96 lg:mx-48 md:mx-16">
+	<div class="bg-base-300 collapse w-screen sm:w-[90%]">
 		<input type="checkbox" class="peer" />
 		<div class="collapse-title bg-primary text-primary-content peer-checked:bg-primary">
 			<h1 class="text-2xl text-center">เปิดกราฟ</h1>
