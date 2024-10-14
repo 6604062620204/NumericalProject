@@ -9,6 +9,7 @@
 	let func = '[A]';
 	let func1 = '\\{X\\}';
 	let func2 = '\\{B\\}';
+	let func3 = 'X_i';
 	let num = 3;
 
 	let result = {
@@ -44,7 +45,7 @@
 	$: console.log(result);
 </script>
 
-<h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Cramer's Rule</h1>
+<h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Gauss Elimination</h1>
 <div class="flex justify-center">
 	<div class="p-4">
 		<div class="flex flex-col items-center">

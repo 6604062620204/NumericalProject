@@ -6,6 +6,7 @@
 	export let func = '';
 	export let func1 = '';
 	export let func2 = '';
+	export let func3 = '';
 	let equation = '';
 
 	function renderMath() {
@@ -44,6 +45,11 @@
 			}
 			if (func2) {
 				equation = katex.renderToString(`${func2}`, {
+					throwOnError: false
+				});
+			}
+			if (func3) {
+				equation = katex.renderToString(`${func3}`, {
 					throwOnError: false
 				});
 			}

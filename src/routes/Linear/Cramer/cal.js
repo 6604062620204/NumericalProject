@@ -20,9 +20,10 @@ export function calmethod(matrixA, matrixB) {
 		for (let j = 0; j < matrixA.length; j++) {
 			matrixCopy[j][i] = matrixB[j];
 		}
+		let temp = (det(matrixCopy) / detA).toFixed(6);
 		result.matrixCopy.push(matrixCopy);
 		result.detCopy.push(det(matrixCopy));
-		result.matrixX.push(det(matrixCopy) / detA);
+		result.matrixX.push(temp);
 	}
 	result.detA = det(matrixA);
 	return result;

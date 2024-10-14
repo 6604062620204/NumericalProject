@@ -1,7 +1,7 @@
 <script>
 	//@ts-nocheck
 	import Katex from '../../Component/katex.svelte';
-	import { calmethod } from '../Cramer/cal';
+	import { calmethod } from '../Gjordan/cal';
 
 	let matrixSize = 3; // ตั้งค่าเริ่มต้นเป็น 3x3
 	let matrixA = [];
@@ -9,9 +9,8 @@
 	let func = '[A]';
 	let func1 = '\\{X\\}';
 	let func2 = '\\{B\\}';
-	let func3 = 'X_i =';
+	let func3 = 'X_i';
 	let num = 3;
-	let pdfUrl = '/assets/doclinear/Cramer.pdf';
 
 	let result = {
 		detA: 0,
@@ -20,6 +19,7 @@
 		detCopy: []
 	};
 
+	// ฟังก์ชันสำหรับการตั้งค่า Matrix ใหม่ตามขนาดที่ผู้ใช้ป้อน
 	function updateMatrix() {
 		matrixA = Array.from({ length: matrixSize }, () => Array(matrixSize).fill(''));
 		matrixB = Array.from({ length: matrixSize }).fill('');
@@ -28,13 +28,16 @@
 	// เรียก updateMatrix ตอนโหลดครั้งแรก
 	updateMatrix();
 
+	// ฟังก์ชันสำหรับสุ่มค่าใน Matrix
 	function randomizeMatrix() {
-		matrixA = Array.from({ length: matrixSize }, () =>
-			Array.from({ length: matrixSize }, () => Math.floor(Math.random() * 10) + 1)
+		matrixA = Array.from(
+			{ length: matrixSize },
+			() => Array.from({ length: matrixSize }, () => Math.floor(Math.random() * 10) + 1) // สุ่มตัวเลข 1-10
 		);
-		matrixB = Array.from({ length: matrixSize }, () => Math.floor(Math.random() * 10) + 1);
+		matrixB = Array.from({ length: matrixSize }, () => Math.floor(Math.random() * 10) + 1); // สุ่มตัวเลข 1-10 สำหรับ Matrix B
 	}
 
+	// ฟังก์ชันสำหรับการคำนวณ (Cramer's Rule)
 	function calculate() {
 		result = calmethod(matrixA, matrixB);
 	}
@@ -42,7 +45,7 @@
 	$: console.log(result);
 </script>
 
-<h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Cramer's Rule</h1>
+<h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Gauss Jordan</h1>
 <div class="flex justify-center">
 	<div class="p-4">
 		<div class="flex flex-col items-center">
@@ -127,6 +130,7 @@
 						{/if}
 					</div>
 
+					<!-- ปุ่มสุ่มตัวเลขใหม่สำหรับ Matrix A และ B -->
 					{#if matrixSize > 1 && matrixSize <= 4}
 						<div class="flex justify-center">
 							<button
@@ -150,45 +154,4 @@
 	</div>
 </div>
 
-<div class="block xl:hidden">
-	<div class="flex justify-center">
-		<a href={pdfUrl} download class="btn font-light btn-primary">Download Doc</a>
-	</div>
-</div>
-
-<!-- Open the modal using ID.showModal() method -->
-<div class="hidden xl:block">
-	<div class="flex justify-center">
-		<button
-			class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
-			onclick="my_modal_2.showModal()">เปิดวิธีทำ</button
-		>
-		<dialog id="my_modal_2" class="modal">
-			<div class="modal-box">
-				<div class="flex justify-center">
-					<embed src={pdfUrl} type="application/pdf" class="w-full h-screen" />
-				</div>
-			</div>
-			<form method="dialog" class="modal-backdrop">
-				<button>close</button>
-			</form>
-		</dialog>
-	</div>
-</div>
-<div class="bg-base-200">
-	{#if result.detA !== 0}
-		<div class="flex justify-center mt-4">
-			<div class="flex-cols">
-				<h2 class="text-lg text-primary flex justify-center">
-					det(A)= {result.detA}
-				</h2>
-				<div class="flex">
-					<h2 class="text-lg text-primary">
-						<Katex {func3} {num} />
-					</h2>
-					<h2 class="text-lg text-primary pt-2">{result.matrixX}</h2>
-				</div>
-			</div>
-		</div>
-	{/if}
-</div>
+<div class=""></div>

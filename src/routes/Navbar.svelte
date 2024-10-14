@@ -11,7 +11,7 @@
 	<div class="navbar-start">
 		<a href="/" class="lg:w-[10%] md:w-[20%] sm:w-[30%] w-[40%]">
 			<img
-				src={isNight ? '/assets/image/logo2.png' : '/assets/image/logo.png'}
+				src={isNight ? '/assets/image/logo.png' : '/assets/image/logo2.png'}
 				class=""
 				alt="logo"
 			/>
@@ -55,7 +55,7 @@
 			>
 				<li><a href="/Linear/Cramer">Cramer</a></li>
 				<li><a href="/Linear/GElimination">Gauss Elimination</a></li>
-				<li><a href="$">Gauss Jordan</a></li>
+				<li><a href="/Linear/Gjordan">Gauss Jordan</a></li>
 				<li><a href="$">Matrix Inversion</a></li>
 				<li><a href="$">LU Decomposition</a></li>
 				<li><a href="$">Cholesky Decomposition</a></li>
@@ -63,9 +63,26 @@
 				<li><a href="$">Conjugate</a></li>
 			</ul>
 		</div>
+		<div class="dropdown dropdown-hover hidden sm:block dropdown-bottom dropdown-end">
+			<div
+				tabindex="0"
+				role="button"
+				class="btn font-light m-1 drop-shadow-md bg-primary text-primary-content rounded-ss-3xl rounded-ee-3xl"
+			>
+				Extrapolation
+			</div>
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<ul
+				tabindex="0"
+				class="dropdown-content menu bg-primary text-primary-content rounded-box z-[1] w-52 p-2 shadow"
+			>
+				<li><a href="/Extra/LinearReg">Simple Regression</a></li>
+				<li><a href="/Extra/MutipleReg">Mutiple Regression</a></li>
+			</ul>
+		</div>
 		<div class="ml-6 mr-4">
 			<label class="swap swap-rotate">
-				<input type="checkbox" class="theme-controller" value="night" on:change={toggleTheme} />
+				<input type="checkbox" class="theme-controller" value="autumn" on:change={toggleTheme} />
 
 				<svg
 					class="swap-off h-7 w-7 fill-primary"
