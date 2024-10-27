@@ -1,8 +1,5 @@
 //@ts-nocheck
 
-import { re } from 'mathjs';
-import {} from 'mathjs';
-
 export function objectresult() {
 	return {
 		matrixX: []

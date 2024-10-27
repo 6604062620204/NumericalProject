@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"algebrite": "^1.4.0",
 		"chart.js": "^4.4.4",
 		"katex": "^0.16.11",
 		"mathjs": "^13.1.1",

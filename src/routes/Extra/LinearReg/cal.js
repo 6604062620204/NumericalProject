@@ -34,7 +34,6 @@ export function calmethod(XA, YA, Size, xvalue, morder) {
 		let temp = [];
 		for (let j = 0; j <= morder; j++) {
 			temp.push(sum[i * (morder + 1) + j]);
-			console.log(temp);
 		}
 		result.matrixX.push(temp);
 	}

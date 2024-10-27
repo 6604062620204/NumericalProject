@@ -77,24 +77,22 @@
 				<label class="block text-lg font-medium text-content text-center my-3">
 					ค่า X และ ค่า F(x)
 				</label>
-				<div class={`flex flex-row justify-items-center gap-2 mt-2`}>
+				<div class={`flex flex-col justify-items-center gap-2 mt-2`}>
 					{#each XA as row, index}
-						<input
-							type="number"
-							class="border py-4 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
-							bind:value={XA[index]}
-							placeholder="x{index + 1}"
-						/>
-					{/each}
-				</div>
-				<div class={`flex flex-row justify-items-center gap-2 mt-2`}>
-					{#each YA as row, index}
-						<input
-							type="number"
-							class="border py-4 mt-4 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
-							bind:value={YA[index]}
-							placeholder="F(x{index + 1})"
-						/>
+						<div class="flex flex-row gap-2">
+							<input
+								type="number"
+								class="border py-4 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
+								bind:value={XA[index]}
+								placeholder="x{index + 1}"
+							/>
+							<input
+								type="number"
+								class="border py-4 rounded-md text-center w-20 sm:w-10 md:w-14 lg:w-12 xl:w-16 h-auto border-secondary focus:outline-none"
+								bind:value={YA[index]}
+								placeholder="F(x{index + 1})"
+							/>
+						</div>
 					{/each}
 				</div>
 			</div>

@@ -3,13 +3,12 @@
 	import { calmethod } from '../MutipleReg/cal.js';
 	import { onMount } from 'svelte';
 
-	let Size = 2;
+	let Size = 3;
 	let xvalue = [];
 	let xnumber = 3;
 	let XA = [];
 	let YA = [];
 	let num = 3;
-	let pdfUrl = '/assets/doclinear/Cramer.pdf';
 
 	let result = {
 		matrixX: []
@@ -27,7 +26,7 @@
 		updateMatrix(); // เรียกใช้เมื่อโหลดหน้าเว็บ
 	});
 
-	$: console.log(XA + ' ' + YA);
+	$: console.log(XA);
 	$: console.log(xvalue);
 </script>
 

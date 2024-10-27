@@ -9,7 +9,7 @@
 	let func = '[A]';
 	let func1 = '\\{X\\}';
 	let func2 = '\\{B\\}';
-	let func3 = 'X_i';
+	let func3 = 'X_i = ';
 	let num = 3;
 
 	let result = {
@@ -153,5 +153,18 @@
 		</div>
 	</div>
 </div>
-
-<div class=""></div>
+<div class="bg-base-200">
+	{#if result.detA !== 0}
+		<div class="flex justify-center mt-4">
+			<div class="flex-cols">
+				<h2 class="text-lg text-primary flex justify-center">Answer</h2>
+				<div class="flex">
+					<h2 class="text-lg text-primary">
+						<Katex {func3} {num} />
+					</h2>
+					<h2 class="text-lg text-primary pt-2">{result.matrixX}</h2>
+				</div>
+			</div>
+		</div>
+	{/if}
+</div>

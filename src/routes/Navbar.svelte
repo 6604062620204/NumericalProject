@@ -80,6 +80,25 @@
 				<li><a href="/Extra/MutipleReg">Mutiple Regression</a></li>
 			</ul>
 		</div>
+		<div class="dropdown dropdown-hover hidden sm:block dropdown-bottom dropdown-end">
+			<div
+				tabindex="0"
+				role="button"
+				class="btn font-light m-1 drop-shadow-md bg-primary text-primary-content rounded-ss-3xl rounded-ee-3xl"
+			>
+				Integration
+			</div>
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<ul
+				tabindex="0"
+				class="dropdown-content menu bg-primary text-primary-content rounded-box z-[1] w-52 p-2 shadow"
+			>
+				<li><a href="/Intigate/Trapezoidal">Simple Trapezoidal</a></li>
+				<li><a href="/Intigate/Trapezoidalcom">Composite Trapezoidal</a></li>
+				<li><a href="/Intigate/Simpson">Simple Simpson</a></li>
+				<li><a href="/Intigate/Simpsoncom">Composite Simpson</a></li>
+			</ul>
+		</div>
 		<div class="ml-6 mr-4">
 			<label class="swap swap-rotate">
 				<input type="checkbox" class="theme-controller" value="autumn" on:change={toggleTheme} />
