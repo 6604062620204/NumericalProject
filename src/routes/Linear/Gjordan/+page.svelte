@@ -41,8 +41,6 @@
 	function calculate() {
 		result = calmethod(matrixA, matrixB);
 	}
-
-	$: console.log(result);
 </script>
 
 <h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Gauss Jordan</h1>

@@ -1,23 +1,19 @@
 <script>
 	//@ts-nocheck
-	import { calmethod } from '../LinearReg/cal.js';
+	//import { calmethod } from '../LinearReg/cal.js';
 	import { onMount } from 'svelte';
 
 	let Size = 2;
 	let xvalue = 65;
-	let morder = 1;
 	let XA = [];
 	let YA = [];
 	let num = 3;
-	let pdfUrl = '/assets/doclinear/Cramer.pdf';
 
 	let result = {
-		matrixX: 0,
-		matrixY: 0,
-		caly: 0
+		matrixX: []
 	};
 	function calculate() {
-		result = calmethod(XA, YA, Size, xvalue, morder);
+		result = calmethod(XA, YA, Size, xvalue);
 	}
 
 	function updateMatrix() {
@@ -25,13 +21,13 @@
 		YA = Array.from({ length: Size }).fill('');
 	}
 	onMount(() => {
-		updateMatrix(); // เรียกใช้เมื่อโหลดหน้าเว็บ
+		updateMatrix();
 	});
-
-	//$: console.log(XA + ' ' + YA);
 </script>
 
-<h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Simple Regression</h1>
+<h1 class="text-4xl text-primary font-bold flex justify-center pt-5">
+	Newton's Divided Difference
+</h1>
 <div class="flex justify-center">
 	<div class="p-4">
 		<div class="flex flex-row items-center gap-4">
@@ -55,16 +51,6 @@
 					id="matrix-size"
 					type="number"
 					bind:value={xvalue}
-					class="mt-1 block w-16 p-2 border border-secondary focus:outline-none rounded-md text-end"
-					min="1"
-				/>
-			</div>
-			<div>
-				<label for="matrix-size" class="block text-lg font-medium text-content">M order</label>
-				<input
-					id="matrix-size"
-					type="number"
-					bind:value={morder}
 					class="mt-1 block w-16 p-2 border border-secondary focus:outline-none rounded-md text-end"
 					min="1"
 				/>
@@ -116,22 +102,4 @@
 			<p class="text-red-500 text-3xl">ขนาด Size น้อยกว่า 1 ไม่ได้นะครับ</p>
 		{/if}
 	</div>
-</div>
-
-<div class="bg-base-200">
-	{#if result.detA !== 0}
-		<div class="flex justify-center mt-4 pt-2">
-			<div class="flex-cols">
-				<h2 class="text-lg text-primary flex justify-center">
-					Metrix(A) = {result.matrixX}
-				</h2>
-				<h2 class="text-lg text-primary flex justify-center">
-					Metrix(Y) = {result.matrixY}
-				</h2>
-				<div class="flex">
-					<h2 class="text-lg text-primary pt-2">Answer = {result.caly}</h2>
-				</div>
-			</div>
-		</div>
-	{/if}
 </div>

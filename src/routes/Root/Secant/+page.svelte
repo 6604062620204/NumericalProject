@@ -11,7 +11,7 @@
 	let num = 1;
 	let choosez = 'secant';
 
-	let result: { xshow: number; iter: number; iterations: Iteration[] } = {
+	let result = {
 		xshow: 0,
 		iter: 0,
 		iterations: [],

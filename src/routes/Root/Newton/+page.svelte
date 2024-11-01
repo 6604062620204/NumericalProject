@@ -10,7 +10,7 @@
 	let num = 1;
 	let choosez = 'newton';
 
-	let result: { xshow: number; iter: number; iterations: Iteration[] } = {
+	let result = {
 		xshow: 0,
 		iter: 1,
 		iterations: [],
@@ -42,7 +42,6 @@
 	$: if (func === '') {
 		showTable = false;
 	}
-	$: console.log(result);
 </script>
 
 <h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Newton Medthod</h1>

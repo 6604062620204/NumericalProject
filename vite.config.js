@@ -9,5 +9,12 @@ export default defineConfig({
 				additionalData: `@import 'src/app.css';`
 			}
 		}
+	},
+	server: {
+		host: true,
+		port: 5173,
+		watch: {
+			usePolling: true
+		}
 	}
 });

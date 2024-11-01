@@ -1,5 +1,6 @@
 <script>
 	//@ts-nocheck
+	import { createData } from '../../../api/linear';
 	import Katex from '../../Component/katex.svelte';
 	import { calmethod } from '../Cramer/cal';
 
@@ -35,11 +36,26 @@
 		matrixB = Array.from({ length: matrixSize }, () => Math.floor(Math.random() * 10) + 1);
 	}
 
+	function datatodb() {
+		const payload = {
+			solution: 'cramer',
+			matrixA: matrixA,
+			matrixB: matrixB,
+			equation: func
+		};
+		console.log(payload);
+		createData(payload)
+			.then((res) => {
+				console.log('Data created successfully:', res);
+			})
+			.catch((err) => {
+				console.error('Error while creating data:', err.response ? err.response.data : err.message);
+			});
+	}
 	function calculate() {
 		result = calmethod(matrixA, matrixB);
+		datatodb();
 	}
-
-	$: console.log(result);
 </script>
 
 <h1 class="text-4xl text-primary font-bold flex justify-center pt-5">Cramer's Rule</h1>

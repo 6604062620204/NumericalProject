@@ -1,8 +1,10 @@
 <script lang="ts">
 	// @ts-nocheck
+	import { createData } from '../../../api/root';
 	import Grapshow from '../../Component/grapshow.svelte';
 	import Katex from '../../Component/katex.svelte';
 	import { calmethod } from '../Bisection/cal';
+	import { fly } from 'svelte/transition';
 
 	let xStart = 0;
 	let xEnd = 10;
@@ -11,23 +13,44 @@
 	let num = 1;
 	let choosez = 'bisection';
 
-	let result: { xshow: number; iter: number; iterations: Iteration[] } = {
+	let result = {
 		xshow: 0,
 		iter: 0,
 		iterations: []
 	};
 	let errorMessage = '';
-
+	let showSuccessAlert = false;
 	let showTable = false;
 
+	function datatodb() {
+		const payload = {
+			solution: 'bisection',
+			xstart: xStart,
+			xend: xEnd,
+			equation: func,
+			error: errorFactor,
+			result: result.xshow.toFixed(6)
+		};
+		createData(payload)
+			.then((res) => {
+				console.log('Data created successfully:', res);
+				showSuccessAlert = true;
+				setTimeout(() => {
+					showSuccessAlert = false;
+				}, 3000);
+			})
+			.catch((err) => {
+				console.error('Error while creating data:', err.response ? err.response.data : err.message);
+			});
+	}
 	function calculate() {
 		if (func && xStart < xEnd && errorFactor > 0) {
 			showTable = true;
 			result = calmethod(xStart, xEnd, errorFactor, func);
-			errorMessage = result.error || '';
+			datatodb();
 		} else {
-			errorMessage = 'ใส่ข้อมูลให้ถูกต้องดิ๊';
-			showTable = true;
+			errorMessage = 'กรุณาใส่ข้อมูลให้ถูกต้องและครบถ้วน';
+			showTable = false;
 		}
 	}
 
@@ -181,3 +204,10 @@
 		</div>
 	</div>
 </div>
+{#if showSuccessAlert}
+	<div class="toast toast-bottom toast-start mt-20" transition:fly={{ y: 200, duration: 500 }}>
+		<div class="alert alert-success">
+			<span>บันทึกข้อมูลลง Database สำเร็จแล้ว</span>
+		</div>
+	</div>
+{/if}

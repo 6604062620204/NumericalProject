@@ -69,6 +69,23 @@
 				role="button"
 				class="btn font-light m-1 drop-shadow-md bg-primary text-primary-content rounded-ss-3xl rounded-ee-3xl"
 			>
+				Interpolation
+			</div>
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<ul
+				tabindex="0"
+				class="dropdown-content menu bg-primary text-primary-content rounded-box z-[1] w-52 p-2 shadow"
+			>
+				<li><a href="/Inter/Newton">Newton's Divided Difference</a></li>
+				<li><a href="/Inter/Lagrange">Lagrange Interpolation</a></li>
+			</ul>
+		</div>
+		<div class="dropdown dropdown-hover hidden sm:block dropdown-bottom dropdown-end">
+			<div
+				tabindex="0"
+				role="button"
+				class="btn font-light m-1 drop-shadow-md bg-primary text-primary-content rounded-ss-3xl rounded-ee-3xl"
+			>
 				Extrapolation
 			</div>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -80,6 +97,7 @@
 				<li><a href="/Extra/MutipleReg">Mutiple Regression</a></li>
 			</ul>
 		</div>
+
 		<div class="dropdown dropdown-hover hidden sm:block dropdown-bottom dropdown-end">
 			<div
 				tabindex="0"

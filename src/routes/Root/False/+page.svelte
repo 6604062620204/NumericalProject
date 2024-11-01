@@ -1,5 +1,6 @@
 <script lang="ts">
 	// @ts-nocheck
+	import { createData } from '../../../api/root';
 	import Grapshow from '../../Component/grapshow.svelte';
 	import Katex from '../../Component/katex.svelte';
 	import { calmethod } from '../False/cal';
@@ -11,7 +12,7 @@
 	let num = 2;
 	let choosez = 'false';
 
-	let result: { xshow: number; iter: number; iterations: Iteration[] } = {
+	let result = {
 		xshow: 0,
 		iter: 0,
 		iterations: []
@@ -20,11 +21,29 @@
 
 	let showTable = false;
 
+	function datatodb() {
+		const payload = {
+			solution: 'FalsePosition',
+			xstart: xl,
+			xend: xr,
+			equation: func,
+			error: errorFactor,
+			result: result.xshow.toFixed(6)
+		};
+		createData(payload)
+			.try((res) => {
+				console.log('Data created successfully:', res);
+			})
+			.catch((err) => {
+				console.error('Error while creating data:', err.response ? err.response.data : err.message);
+			});
+	}
+
 	function calculate() {
 		if (func && xl < xr && errorFactor > 0) {
 			showTable = true;
 			result = calmethod(xl, xr, errorFactor, func);
-			errorMessage = result.error || '';
+			datatodb();
 		} else {
 			errorMessage = 'ใส่ข้อมูลให้ถูกต้องดิ๊';
 			showTable = true;
@@ -44,7 +63,6 @@
 		showTable = false;
 	}
 	// @ts-ignore
-	$: console.log(result);
 </script>
 
 <h1 class="text-4xl text-primary font-bold flex justify-center pt-5">FalsePosition Medthod</h1>
