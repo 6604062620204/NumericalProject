@@ -1,10 +1,11 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { createData } from '../../../api/root';
+	import { createData, readsol } from '../../../api/root';
 	import Grapshow from '../../Component/grapshow.svelte';
 	import Katex from '../../Component/katex.svelte';
 	import { calmethod } from '../Bisection/cal';
 	import { fly } from 'svelte/transition';
+	import { onMount } from 'svelte';
 
 	let xStart = 0;
 	let xEnd = 10;
@@ -12,6 +13,7 @@
 	let func = '';
 	let num = 1;
 	let choosez = 'bisection';
+	let data = [];
 
 	let result = {
 		xshow: 0,
@@ -33,16 +35,17 @@
 		};
 		createData(payload)
 			.then((res) => {
-				console.log('Data created successfully:', res);
+				console.log('สร้าง Data สำเร็จ', res);
 				showSuccessAlert = true;
 				setTimeout(() => {
 					showSuccessAlert = false;
 				}, 3000);
 			})
 			.catch((err) => {
-				console.error('Error while creating data:', err.response ? err.response.data : err.message);
+				console.log(err);
 			});
 	}
+
 	function calculate() {
 		if (func && xStart < xEnd && errorFactor > 0) {
 			showTable = true;
@@ -62,9 +65,27 @@
 		}
 	}
 
+	const handdlegetdata = async () => {
+		try {
+			const res = await readsol('bisection');
+			data = res.data;
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	function selectEquation(equation) {
+		func = equation;
+		document.getElementById('my_modal_6').close();
+	}
+	onMount(() => {
+		handdlegetdata();
+	});
+
 	$: if (func === '') {
 		showTable = false;
 	}
+
 	//$: console.log(result);
 </script>
 
@@ -135,6 +156,59 @@
 				>
 			</div>
 		</form>
+
+		<!-- ---------------------------- -->
+		<div class="flex justify-center mt-6">
+			<button
+				class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
+				on:click={() => document.getElementById('my_modal_6').showModal()}
+			>
+				เปิดโจทย์
+			</button>
+		</div>
+
+		<dialog id="my_modal_6" class="modal modal-bottom sm:modal-middle">
+			<div class="modal-box">
+				<div class="flex justify-center">
+					<div class="w-[50rem]">
+						<p class="m-2 text-white">Root of Equation</p>
+
+						<table class="table">
+							<thead class="bg-primary text-primary-content font-light text-lg">
+								<tr>
+									<th class="">Solution</th>
+									<th class="">Equation</th>
+									<th class="">เลือก</th>
+									<!-- คอลัมน์ปุ่มเลือก -->
+								</tr>
+							</thead>
+						</table>
+
+						<div class="overflow-y-auto h-52">
+							<table class="table font-light text-md">
+								<tbody class="bg-base-300">
+									{#each data as item}
+										<tr>
+											<td class="text-white">{item.solution}</td>
+											<td class="text-white">{item.equation}</td>
+											<td class="text-center">
+												<!-- ปุ่มเลือกสมการ -->
+												<button
+													class="bg-primary p-2 rounded-lg text-white"
+													on:click={() => selectEquation(item.equation)}
+												>
+													เลือก
+												</button>
+											</td>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</dialog>
 		{#if showTable}
 			<div class="flex justify-center mt-6">
 				<button

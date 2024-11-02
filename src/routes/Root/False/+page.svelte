@@ -4,6 +4,9 @@
 	import Grapshow from '../../Component/grapshow.svelte';
 	import Katex from '../../Component/katex.svelte';
 	import { calmethod } from '../False/cal';
+	import { readsol } from '../../../api/root';
+	import { onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
 
 	let xl = 0;
 	let xr = 0;
@@ -11,6 +14,8 @@
 	let func = '';
 	let num = 2;
 	let choosez = 'false';
+	let data = [];
+	let showSuccessAlert = false;
 
 	let result = {
 		xshow: 0,
@@ -20,24 +25,6 @@
 	let errorMessage = '';
 
 	let showTable = false;
-
-	function datatodb() {
-		const payload = {
-			solution: 'FalsePosition',
-			xstart: xl,
-			xend: xr,
-			equation: func,
-			error: errorFactor,
-			result: result.xshow.toFixed(6)
-		};
-		createData(payload)
-			.try((res) => {
-				console.log('Data created successfully:', res);
-			})
-			.catch((err) => {
-				console.error('Error while creating data:', err.response ? err.response.data : err.message);
-			});
-	}
 
 	function calculate() {
 		if (func && xl < xr && errorFactor > 0) {
@@ -57,6 +44,45 @@
 			return Number(value.toFixed(6)).toString();
 		}
 	}
+
+	function datatodb() {
+		const payload = {
+			solution: 'FalsePosition',
+			xstart: xl,
+			xend: xr,
+			equation: func,
+			error: errorFactor,
+			result: result.xshow.toFixed(6)
+		};
+		createData(payload)
+			.then((res) => {
+				console.log('สร้าง Data สำเร็จ', res);
+				showSuccessAlert = true;
+				setTimeout(() => {
+					showSuccessAlert = false;
+				}, 3000);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+	const handdlegetdata = async () => {
+		try {
+			const res = await readsol('FalsePosition');
+			data = res.data;
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	function selectEquation(equation) {
+		func = equation;
+		document.getElementById('my_modal_6').close();
+	}
+	onMount(() => {
+		handdlegetdata();
+	});
 
 	// @ts-ignore
 	$: if (func === '') {
@@ -132,6 +158,57 @@
 				>
 			</div>
 		</form>
+		<div class="flex justify-center mt-6">
+			<button
+				class="btn font-light text-base w-auto h-12 drop-shadow-md bg-primary text-primary-content py-2 px-4 rounded-ss-3xl rounded-ee-3xl"
+				on:click={() => document.getElementById('my_modal_6').showModal()}
+			>
+				เปิดโจทย์
+			</button>
+		</div>
+
+		<dialog id="my_modal_6" class="modal modal-bottom sm:modal-middle">
+			<div class="modal-box">
+				<div class="flex justify-center">
+					<div class="w-[50rem]">
+						<p class="m-2 text-white">Root of Equation</p>
+
+						<table class="table">
+							<thead class="bg-primary text-primary-content font-light text-lg">
+								<tr>
+									<th class="">Solution</th>
+									<th class="">Equation</th>
+									<th class="">เลือก</th>
+									<!-- คอลัมน์ปุ่มเลือก -->
+								</tr>
+							</thead>
+						</table>
+
+						<div class="overflow-y-auto h-52">
+							<table class="table font-light text-md">
+								<tbody class="bg-base-300">
+									{#each data as item}
+										<tr>
+											<td class="text-white">{item.solution}</td>
+											<td class="text-white">{item.equation}</td>
+											<td class="text-center">
+												<!-- ปุ่มเลือกสมการ -->
+												<button
+													class="bg-primary p-2 rounded-lg text-white"
+													on:click={() => selectEquation(item.equation)}
+												>
+													เลือก
+												</button>
+											</td>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</dialog>
 		{#if showTable}
 			<div class="flex justify-center mt-6">
 				<button
@@ -201,3 +278,10 @@
 		</div>
 	</div>
 </div>
+{#if showSuccessAlert}
+	<div class="toast toast-bottom toast-start mt-20" transition:fly={{ y: 200, duration: 500 }}>
+		<div class="alert alert-success">
+			<span>บันทึกข้อมูลลง Database สำเร็จแล้ว</span>
+		</div>
+	</div>
+{/if}

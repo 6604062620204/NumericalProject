@@ -28,7 +28,6 @@
 	// เรียก updateMatrix ตอนโหลดครั้งแรก
 	updateMatrix();
 
-	// ฟังก์ชันสำหรับสุ่มค่าใน Matrix
 	function randomizeMatrix() {
 		matrixA = Array.from(
 			{ length: matrixSize },
@@ -37,7 +36,6 @@
 		matrixB = Array.from({ length: matrixSize }, () => Math.floor(Math.random() * 10) + 1); // สุ่มตัวเลข 1-10 สำหรับ Matrix B
 	}
 
-	// ฟังก์ชันสำหรับการคำนวณ (Cramer's Rule)
 	function calculate() {
 		result = calmethod(matrixA, matrixB);
 	}

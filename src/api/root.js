@@ -7,4 +7,4 @@ export const getData = async () => await axios.get(url);
 
 export const createData = async (data) => await axios.post(url, data);
 
-export const readsol = async (id) => await axios.get(`${url}/${id}`);
+export const readsol = async (solution) => await axios.get(`${url}/${solution}`);

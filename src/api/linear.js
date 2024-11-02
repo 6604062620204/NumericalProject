@@ -6,3 +6,5 @@ const url = 'https://numer-api-sigma.vercel.app/api/linear';
 export const getDatal = async () => await axios.get(url);
 
 export const createData = async (data) => await axios.post(url, data);
+
+export const readsol = async (solution) => await axios.get(`${url}/${solution}`);

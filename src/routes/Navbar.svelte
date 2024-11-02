@@ -56,14 +56,14 @@
 				<li><a href="/Linear/Cramer">Cramer</a></li>
 				<li><a href="/Linear/GElimination">Gauss Elimination</a></li>
 				<li><a href="/Linear/Gjordan">Gauss Jordan</a></li>
-				<li><a href="$">Matrix Inversion</a></li>
+				<!-- <li><a href="$">Matrix Inversion</a></li>
 				<li><a href="$">LU Decomposition</a></li>
 				<li><a href="$">Cholesky Decomposition</a></li>
 				<li><a href="$">Jacobi</a></li>
-				<li><a href="$">Conjugate</a></li>
+				<li><a href="$">Conjugate</a></li> -->
 			</ul>
 		</div>
-		<div class="dropdown dropdown-hover hidden sm:block dropdown-bottom dropdown-end">
+		<!-- <div class="dropdown dropdown-hover hidden sm:block dropdown-bottom dropdown-end">
 			<div
 				tabindex="0"
 				role="button"
@@ -71,7 +71,6 @@
 			>
 				Interpolation
 			</div>
-			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<ul
 				tabindex="0"
 				class="dropdown-content menu bg-primary text-primary-content rounded-box z-[1] w-52 p-2 shadow"
@@ -79,7 +78,7 @@
 				<li><a href="/Inter/Newton">Newton's Divided Difference</a></li>
 				<li><a href="/Inter/Lagrange">Lagrange Interpolation</a></li>
 			</ul>
-		</div>
+		</div> -->
 		<div class="dropdown dropdown-hover hidden sm:block dropdown-bottom dropdown-end">
 			<div
 				tabindex="0"
@@ -94,7 +93,7 @@
 				class="dropdown-content menu bg-primary text-primary-content rounded-box z-[1] w-52 p-2 shadow"
 			>
 				<li><a href="/Extra/LinearReg">Simple Regression</a></li>
-				<li><a href="/Extra/MutipleReg">Mutiple Regression</a></li>
+				<!-- <li><a href="/Extra/MutipleReg">Mutiple Regression</a></li> -->
 			</ul>
 		</div>
 

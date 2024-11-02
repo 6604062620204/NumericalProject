@@ -37,7 +37,7 @@ export function graphicalMethod(xStart, xEnd, errorFactor, func) {
 		iter++;
 
 		if (iter === MAX_ITER) {
-			result.error = 'Max iteration reached';
+			result.error = 'Max iter';
 			break;
 		}
 
